@@ -1,0 +1,27 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk configuration.compileSdk
+
+    defaultConfig {
+        minSdk configuration.minSdk
+        targetSdk configuration.targetSdk
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility configuration.sourceCompatibility
+        targetCompatibility configuration.targetCompatibility
+    }
+    kotlinOptions {
+        jvmTarget = "${configuration.targetCompatibility}"
+    }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="fontFamilyLight" format="string" />
+    <attr name="fontFamilyRegular" format="string" />
+    <attr name="fontFamilyMedium" format="string" />
+    <attr name="fontFamilyBold" format="string" />
+
+    <attr name="linkColor" format="color" />
+
+</resources>
