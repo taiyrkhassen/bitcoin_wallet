@@ -1,0 +1,64 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdk configuration.compileSdk
+
+    defaultConfig {
+        minSdk configuration.minSdk
+        targetSdk configuration.targetSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility configuration.sourceCompatibility
+        targetCompatibility configuration.targetCompatibility
+    }
+    kotlinOptions {
+        jvmTarget = "${configuration.targetCompatibility}"
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation project(path: ':core:domain')
+    implementation project(path: ':config')
+
+    api "androidx.core:core-ktx:${libs.core_ktx}"
+    api "androidx.appcompat:appcompat:${libs.appcompat}"
+    api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    api "com.google.android.material:material:${libs.material}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${libs.viewmodel}"
+
+    // glide
+    implementation "com.github.bumptech.glide:glide:${libs.glide}"
+    kapt "com.github.bumptech.glide:compiler:${libs.glide}"
+    implementation 'com.caverock:androidsvg:1.4'
+
+    // cicerone
+    api "com.github.terrakok:cicerone:${libs.cicerone}"
+
+    // Shimmer
+    api "com.facebook.shimmer:shimmer:${libs.shimmer}"
+
+    // logging
+    api "com.jakewharton.timber:timber:${libs.timber}"
+
+    testImplementation "junit:junit:${libs.junit}"
+    androidTestImplementation "androidx.test.ext:junit:${libs.androidx_junit}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${libs.androidx_espresso}"
+}

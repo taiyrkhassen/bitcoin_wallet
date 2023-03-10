@@ -1,0 +1,35 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.BitcoinWallet" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+
+
+        <item name="fontFamilyLight">@font/sf_pro_light</item>
+        <item name="fontFamilyRegular">@font/sf_pro_regular</item>
+        <item name="fontFamilyMedium">@font/sf_pro_medium</item>
+        <item name="fontFamilyBold">@font/sf_pro_bold</item>
+
+        <item name="android:fontFamily">?attr/fontFamilyRegular</item>
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#1B1E24</item>
+        <item name="colorPrimaryDark">#1B1E24</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">#22262E</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="colorAccent">#0AA699</item>
+        <item name="dividerColor">@color/grey_divider</item>
+        <item name="linkColor">#0AA699</item>
+
+        <item name="android:textColorPrimary">#FFFFFF</item>
+<!--        <item name="android:textColorSecondary">#8B91A0</item>-->
+        <item name="android:textColorHint">#8B91A0</item>
+
+        <item name="android:windowBackground">?attr/colorPrimary</item>
+        <item name="android:windowSplashScreenBackground" tools:targetApi="s">?attr/colorPrimary</item>
+
+    </style>
+
+</resources>
