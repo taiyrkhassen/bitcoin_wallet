@@ -13,4 +13,13 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Bitcoin wallet"
+
 include ':app'
+include ':config'
+include ':feature:transfer'
+include ':feature:home'
+include ':core:data'
+include ':core:domain'
+include ':core:presentation'
+include ':feature:splash'
+include ':feature:main'
