@@ -17,6 +17,8 @@ object SplashScreen : NavigationScreen()
 
 object MainScreen : NavigationScreen()
 
+object StatusPageScreen : NavigationScreen()
+
 object HomeScreen : NavigationScreen()
 
 object TransferScreen : NavigationScreen()

@@ -15,7 +15,6 @@ dependencyResolutionManagement {
 rootProject.name = "Bitcoin wallet"
 
 include ':app'
-include ':config'
 include ':feature:transfer'
 include ':feature:home'
 include ':core:data'
