@@ -33,7 +33,6 @@ private sealed class Result {
 fun <T> CoroutineScope.subscribe(
     doAction: suspend () -> T,
     doOnError: (suspend (Throwable) -> Unit)? = null,
-    attachErrorHandler: Boolean = false,
     doOnSuccess: (suspend (T) -> Unit)? = null,
 ) = launch(Dispatchers.Main) {
     val result = withContext(Dispatchers.IO) {
@@ -46,13 +45,6 @@ fun <T> CoroutineScope.subscribe(
     when (result) {
         is Result.Success<*> -> doOnSuccess?.invoke(result.value as T)
         is Result.Error -> {
-            if (attachErrorHandler) {
-                try {
-                    //catch excep
-                } catch (t: Throwable) {
-                    /* ignore exceptions */
-                }
-            }
             doOnError?.invoke(result.throwable)
         }
     }

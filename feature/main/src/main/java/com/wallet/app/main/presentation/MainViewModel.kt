@@ -4,6 +4,4 @@ import com.wallet.app.presentation.ui.base.BaseUiStateViewModel
 
 abstract class MainViewModel(
     initUi: MainUiState
-): BaseUiStateViewModel<MainUiState>(initUi) {
-
-}
+): BaseUiStateViewModel<MainUiState>(initUi)

@@ -58,7 +58,6 @@ dependencies {
     implementation project(path: ':core:data')
     implementation project(path: ':core:domain')
     implementation project(path: ':core:presentation')
-    implementation project(path: ':config')
     implementation project(path: ':feature:home')
     implementation project(path: ':feature:transfer')
     implementation project(path: ':feature:splash')

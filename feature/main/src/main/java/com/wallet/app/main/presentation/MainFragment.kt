@@ -2,13 +2,13 @@ package com.wallet.app.main.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.wallet.app.home.presentation.HomeFragment
+import com.wallet.app.home.presentation.mvi.HomeFragment
 import com.wallet.app.main.R
 import com.wallet.app.main.databinding.FragmentMainBinding
 import com.wallet.app.main.di.MainModule
 import com.wallet.app.presentation.listeners.OnBackPressedListener
 import com.wallet.app.presentation.ui.base.BaseUiStateFragment
-import com.wallet.app.transfer.presentation.TransferFragment
+import com.wallet.app.transfer.presentation.mvi.TransferFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.BigDecimal
 
@@ -51,9 +51,9 @@ class MainFragment : BaseUiStateFragment<FragmentMainBinding, MainUiState, MainV
 
     private fun showFragment(tabId: Int) {
         val targetFragment = when (tabId) {
-            R.id.HomeButtonNavigation -> HomeFragment.newInstance(BigDecimal(0))
+            R.id.HomeButtonNavigation -> HomeFragment.newInstance()
             R.id.TransferButtonNavigation -> TransferFragment.newInstance()
-            else -> HomeFragment.newInstance(BigDecimal(0))
+            else -> HomeFragment.newInstance()
         }
         val previousFragment = tabIds
             .mapNotNull { childFragmentManager.findFragmentByTag(it.toString()) }
