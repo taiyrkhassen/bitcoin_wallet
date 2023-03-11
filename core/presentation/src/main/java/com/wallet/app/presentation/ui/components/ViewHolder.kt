@@ -1,10 +1,9 @@
 package com.wallet.app.presentation.ui.components
 
-import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class ViewHolder<T>(
+abstract class ViewHolder<T : Any>(
     itemView: View,
 ) : RecyclerView.ViewHolder(itemView) {
 
@@ -15,16 +14,8 @@ abstract class ViewHolder<T>(
     fun bind(items: List<Any?>, position: Int) {
         this.items = items
         this.currentPosition = position
-        render(items[position] as? T)
+        (items[position] as? T)?.let { render(it, false) }
     }
 
-    fun bind(entity: T?) {
-        render(entity)
-    }
-
-    protected abstract fun render(entity: T?)
-
-    open fun applyChanges(bundle: Bundle) {
-
-    }
+    abstract fun render(entity: T, prevEntityUpdate: Boolean)
 }

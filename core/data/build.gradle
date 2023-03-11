@@ -31,7 +31,6 @@ android {
 
 dependencies {
     implementation project(path: ':core:domain')
-    implementation project(path: ':config')
 
     // rest
     implementation "com.squareup.okhttp3:okhttp:${libs.okhttp}"
