@@ -19,7 +19,6 @@ internal class SplashViewModelImpl(
     private fun loadBalance() {
         viewModelScope.subscribe(
             doAction = {
-                delay(2000)
                 interactor.getBalance()
             },
             doOnSuccess = { balance ->

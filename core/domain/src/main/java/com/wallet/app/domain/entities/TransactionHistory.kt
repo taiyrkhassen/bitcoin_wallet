@@ -3,13 +3,13 @@ package com.wallet.app.domain.entities
 import java.math.BigDecimal
 import java.util.Date
 
-data class Transaction(
+data class TransactionHistory(
     val id: String,
     val date: Date,
     val status: TransactionStatus,
-    val amount: BigDecimal
+    val amount: String
 ){
     enum class TransactionStatus{
-        RECEIVED, SENT
+        RECEIVED, SENT, UNKNOWN
     }
 }

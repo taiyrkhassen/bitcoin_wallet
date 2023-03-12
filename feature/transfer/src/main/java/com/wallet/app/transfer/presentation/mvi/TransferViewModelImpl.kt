@@ -1,12 +1,12 @@
 package com.wallet.app.transfer.presentation.mvi
 
 import androidx.lifecycle.viewModelScope
-import com.wallet.app.presentation.extension.isValidEmail
 import com.wallet.app.presentation.extension.subscribe
 import com.wallet.app.presentation.navigation.Navigator
 import com.wallet.app.presentation.navigation.StatusPageScreen
 import com.wallet.app.transfer.interactors.TransferInteractor
 import kotlinx.coroutines.delay
+import java.math.BigDecimal
 
 class TransferViewModelImpl(
     private val navigator: Navigator,
@@ -17,7 +17,7 @@ class TransferViewModelImpl(
         getBalance()
     }
 
-    private var newEmail: String? = null
+    private var newAmount: String? = null
     private var newAddress: String? = null
     private var newNote: String? = null
 
@@ -28,8 +28,10 @@ class TransferViewModelImpl(
             )
         }
         viewModelScope.subscribe(
-            { delay(4000)
-                interactor.getBalance() },
+            {
+                delay(4000)
+                interactor.getBalance()
+            },
             doOnSuccess = { balance ->
                 updateUiState {
                     it.copy(
@@ -65,8 +67,14 @@ class TransferViewModelImpl(
         )
     }
 
-    override fun onAmountChanged(email: String?) {
-        this.newEmail = email
+    override fun onAmountChanged(amount: String?) {
+        this.newAmount = amount
+        updateUiState {
+            it.copy(
+                amountForFees = amount?.toBigDecimal() ?: BigDecimal(0),
+                transactionFee = interactor.getTransactionFee()
+            )
+        }
         checkButtonEnable()
     }
 
@@ -82,9 +90,8 @@ class TransferViewModelImpl(
     private fun checkButtonEnable() {
         updateUiState {
             it.copy(
-                isButtonEnabled = !newEmail.isNullOrEmpty() && !newAddress.isNullOrEmpty()
+                isButtonEnabled = !newAmount.isNullOrEmpty() && !newAddress.isNullOrEmpty()
             )
         }
     }
-
 }

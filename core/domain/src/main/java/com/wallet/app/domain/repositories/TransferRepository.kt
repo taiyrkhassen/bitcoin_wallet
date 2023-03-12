@@ -1,9 +1,13 @@
 package com.wallet.app.domain.repositories
 
+import com.wallet.app.domain.entities.TransactionHistory
 import java.math.BigDecimal
 
 interface TransferRepository {
-    suspend fun getTransactionFee(): BigDecimal
+
+    suspend fun getTransactions(): List<TransactionHistory>
+
+    fun getTransactionFee(): BigDecimal
 
     suspend fun sendBitcoins()
 }

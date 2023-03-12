@@ -62,6 +62,7 @@ dependencies {
     implementation project(path: ':feature:transfer')
     implementation project(path: ':feature:splash')
     implementation project(path: ':feature:main')
+    implementation project(path: ':feature:statuspage')
 
     implementation 'com.android.support:multidex:1.0.3'
 

@@ -1,4 +1,4 @@
-package com.wallet.app.transfer.presentation.mvi.status
+package com.wallet.app.statuspage.presentation
 
 import com.wallet.app.presentation.ui.base.BaseUiStateViewModel
 

@@ -22,7 +22,7 @@ internal class HomeViewModelImpl(
                 updateUiState {
                     it.copy(
                         balance = balance,
-                        btcNumber = BigDecimal(2), //todo api
+                        btcNumber = "", //todo api
                     )
                 }
             },
@@ -30,8 +30,8 @@ internal class HomeViewModelImpl(
                 updateUiState {
                     it.copy(
                         showExceptionMessage = "Error cant get balance ${error.localizedMessage}",
-                        btcNumber = BigDecimal(0),
-                        balance = BigDecimal(0)
+                        btcNumber = "",
+                        balance = ""
                     )
                 }
             }
