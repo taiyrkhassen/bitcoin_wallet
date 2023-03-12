@@ -1,14 +1,7 @@
 package com.wallet.app.presentation.navigation
 
-import android.os.Parcelable
-import com.github.terrakok.cicerone.Screen
-import com.github.terrakok.cicerone.androidx.FragmentScreen
-import kotlinx.parcelize.Parcelize
+sealed class NavigationScreen
 
-@Parcelize
-sealed class NavigationScreen : Parcelable
-
-@Parcelize
 sealed class NavigationScreenForResult(
     open val resultKey: String
 ) : NavigationScreen()
