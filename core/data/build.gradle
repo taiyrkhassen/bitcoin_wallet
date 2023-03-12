@@ -10,7 +10,7 @@ android {
     defaultConfig {
         minSdk configuration.minSdk
         targetSdk configuration.targetSdk
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -29,6 +29,13 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    packagingOptions {
+        exclude 'lib/x86_64/darwin/libscrypt.dylib'
+        exclude 'lib/x86_64/freebsd/libscrypt.so'
+        exclude 'lib/x86_64/linux/libscrypt.so'
+        pickFirst 'paymentrequest.proto'
+    }
 }
 
 dependencies {
@@ -43,5 +50,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:${libs.retrofit}"
 
     //bitcoinj transactions
-    api "org.bitcoinj:bitcoinj-core:${libs.bitcoinj}"
+   // api "org.bitcoinj:bitcoinj-core:${libs.bitcoinj}"
+
+    implementation 'com.android.support:multidex:2.0.1'
+
+    implementation 'com.github.BlockIo:block_io-java:2.0.1-beta'
 }

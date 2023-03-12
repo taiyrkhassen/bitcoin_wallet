@@ -9,6 +9,6 @@ data class HomeUiState(
     val showExceptionMessage: String? = null,
     val shimmerIsVisible: Boolean = true,
     val emptyStateVisible: Boolean = false,
-    val balance: String = "",
-    val btcNumber: String = "",
+    val balance: BigDecimal? = null,
+    val btcNumber: BigDecimal? = null,
 ) : BaseUiState()

@@ -12,7 +12,11 @@ class TransferInteractorImpl(
 
     override suspend fun getBalance() = walletRepository.getBalance()
 
-    override suspend fun sendBitcoins() {
-        transferRepository.sendBitcoins()
+    override suspend fun sendBitcoins(
+        amount: List<String>,
+        addresses: List<String>,
+        label: String?
+    ) {
+        transferRepository.sendBitcoins(amount, addresses, label)
     }
 }

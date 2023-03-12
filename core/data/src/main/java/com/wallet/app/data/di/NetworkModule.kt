@@ -3,11 +3,14 @@ package com.wallet.app.data.di
 import com.google.gson.Gson
 import com.moczul.ok2curl.CurlInterceptor
 import com.moczul.ok2curl.logger.Logger
+import com.wallet.app.config.PRIVATE_PIN
+import com.wallet.app.config.TESTNET_BITCOIN_KEY
 import com.wallet.app.data.BuildConfig
 import com.wallet.app.data.network.api.TransactionsApi
 import com.wallet.app.data.network.api.WalletApi
 import com.wallet.app.data.network.interceptors.ConnectionInterceptor
 import com.wallet.app.domain.di.BaseModule
+import lib.blockIo.BlockIo
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -30,6 +33,8 @@ class NetworkModule : BaseModule() {
         single { ConnectionInterceptor(get()) }
         single { HttpLoggingInterceptor() }
         factory { provideConverterFactory(get()) }
+        single { BlockIo(TESTNET_BITCOIN_KEY, PRIVATE_PIN) }
+        factory { Gson() }
 
         factory(named(BLOCK_IO_RETROFIT)) {
             provideRetrofit(

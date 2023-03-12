@@ -26,8 +26,8 @@ class TransactionViewHolder(
             val item = entity.item
             tvTitleStatus.text = "Bitcoin"
             sivArrowStatus.setImageDrawable(ContextCompat.getDrawable(root.context, item.getArrow()))
-            tvAmount.text = "${item.getSign()}${item.amount.setScale(5, RoundingMode.DOWN)} BTC"
-            tvDate.text = item.date.toFormattedString("dd-MM-yyyy HH:mm:ss:aa")
+            tvAmount.text = "${item.getSign()}${item.amount} tBTC"
+            tvDate.text = item.date.toFormattedString("dd MMMM yyyy, HH:mm:ss:aa")
         }
 
     private fun TransactionHistory.getSign(): String =

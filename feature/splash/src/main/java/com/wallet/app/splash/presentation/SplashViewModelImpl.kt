@@ -5,7 +5,6 @@ import com.wallet.app.presentation.extension.subscribe
 import com.wallet.app.presentation.navigation.MainScreen
 import com.wallet.app.presentation.navigation.Navigator
 import com.wallet.app.splash.interactors.SplashInteractor
-import kotlinx.coroutines.delay
 
 internal class SplashViewModelImpl(
     private val interactor: SplashInteractor,
@@ -19,13 +18,12 @@ internal class SplashViewModelImpl(
     private fun loadBalance() {
         viewModelScope.subscribe(
             doAction = {
-                interactor.getBalance()
+                interactor.getAddress()
             },
-            doOnSuccess = { balance ->
+            doOnSuccess = { address ->
                 navigator.newRootChain(MainScreen)
             },
             doOnError = {
-                //mainScreen
                 navigator.newRootChain(MainScreen)
             }
         )

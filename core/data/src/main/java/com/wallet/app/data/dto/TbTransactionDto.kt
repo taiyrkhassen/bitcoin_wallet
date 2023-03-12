@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class TbTransactionDto(
     @SerializedName("data")
     val data: TbTransactionDataDto,
-    @SerializedName("data")
+    @SerializedName("status")
     val status: String
 )

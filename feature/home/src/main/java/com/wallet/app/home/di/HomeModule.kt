@@ -12,7 +12,7 @@ import org.koin.dsl.module
 
 class HomeModule : BaseModule() {
     override val module: Module = module {
-        factory<HomeInteractor> { HomeInteractorImpl(get()) }
+        factory<HomeInteractor> { HomeInteractorImpl(get(), get()) }
         scope(TypeQualifier(HomeModule::class)) {
             viewModel<HomeViewModel> { HomeViewModelImpl(get()) }
         }
