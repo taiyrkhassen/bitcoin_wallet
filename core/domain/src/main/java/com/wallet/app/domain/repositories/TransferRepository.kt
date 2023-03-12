@@ -5,5 +5,5 @@ import java.math.BigDecimal
 interface TransferRepository {
     suspend fun getTransactionFee(): BigDecimal
 
-    suspend fun sendBitcoin()
+    suspend fun sendBitcoins()
 }

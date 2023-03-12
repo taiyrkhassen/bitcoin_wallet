@@ -10,7 +10,7 @@ class TransferRepositoryImpl(
 
     override suspend fun getTransactionFee() = BigDecimal(2)
 
-    override suspend fun sendBitcoin() {
-        TODO("Not yet implemented")
+    override suspend fun sendBitcoins() {
+        BigDecimal(2)
     }
 }

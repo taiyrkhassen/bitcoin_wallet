@@ -33,8 +33,6 @@ class HomeFragment : BaseUiStateFragment<FragmentHomeBinding, HomeUiState, HomeV
     }
 
     override fun setupUi() = with(binding) {
-        rvTransactions.adapter = adapter
-        adapter.update(List(4) { TransactionWrapper(null) })
     }
 
     @SuppressLint("SetTextI18n")

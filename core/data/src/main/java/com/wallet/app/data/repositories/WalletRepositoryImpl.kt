@@ -12,7 +12,7 @@ class WalletRepositoryImpl(
 ) : WalletRepository {
 
     override suspend fun getBalance(): BigDecimal {
-        delay(5000)
+        delay(2000)
         return BigDecimal(4)
     }
 
