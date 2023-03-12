@@ -138,6 +138,7 @@
                     android:layout_marginTop="10dp"
                     android:textColor="#8B91A0"
                     android:textSize="12sp"
+                    android:visibility="gone"
                     tools:text="Min: 0.00061 BTC - Max: 2.0006 BTC" />
             </LinearLayout>
 

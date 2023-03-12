@@ -24,4 +24,8 @@ android {
     kotlinOptions {
         jvmTarget = "${configuration.targetCompatibility}"
     }
+
+    buildFeatures {
+        buildConfig true
+    }
 }

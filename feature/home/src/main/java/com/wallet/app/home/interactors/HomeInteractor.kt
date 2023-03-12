@@ -1,10 +1,10 @@
 package com.wallet.app.home.interactors
 
-import com.wallet.app.domain.entities.Transaction
+import com.wallet.app.domain.entities.TransactionHistory
 import java.math.BigDecimal
 
 interface HomeInteractor {
-    suspend fun getBalance(): BigDecimal
+    suspend fun getBalance(): String
 
-    suspend fun getTransactions(): List<Transaction>
+    suspend fun getTransactions(): List<TransactionHistory>
 }

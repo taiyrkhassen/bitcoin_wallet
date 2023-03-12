@@ -1,15 +1,16 @@
-package com.wallet.app.transfer.presentation.mvi.status
+package com.wallet.app.statuspage.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wallet.app.presentation.ui.base.BaseUiStateFragment
-import com.wallet.app.transfer.databinding.FragmentStatusBinding
-import com.wallet.app.transfer.di.TransferModule
+import com.wallet.app.statuspage.databinding.FragmentStatusBinding
+import com.wallet.app.statuspage.di.StatusModule
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StatusPageFragment : BaseUiStateFragment<FragmentStatusBinding, StatusPageUiState, StatusPageViewModel>(
-    TransferModule::class
-) {
+class StatusPageFragment :
+    BaseUiStateFragment<FragmentStatusBinding, StatusPageUiState, StatusPageViewModel>(
+        StatusModule::class
+    ) {
     companion object {
         fun newInstance() = StatusPageFragment()
     }
@@ -28,8 +29,9 @@ class StatusPageFragment : BaseUiStateFragment<FragmentStatusBinding, StatusPage
         }
     }
 
-    override fun updateUiState(prevUiState: StatusPageUiState?, uiState: StatusPageUiState) = with(binding) {
-        //nothing
-    }
+    override fun updateUiState(prevUiState: StatusPageUiState?, uiState: StatusPageUiState) =
+        with(binding) {
+            //nothing
+        }
 
 }

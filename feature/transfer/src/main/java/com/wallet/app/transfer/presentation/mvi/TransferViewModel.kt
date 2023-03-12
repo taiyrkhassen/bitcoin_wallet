@@ -7,7 +7,7 @@ abstract class TransferViewModel(
 ) : BaseUiStateViewModel<TransferUiState>(initUi) {
     abstract fun sendBitcoins()
 
-    abstract fun onAmountChanged(email: String?)
+    abstract fun onAmountChanged(amount: String?)
 
     abstract fun onAddressChanged(address: String?)
 

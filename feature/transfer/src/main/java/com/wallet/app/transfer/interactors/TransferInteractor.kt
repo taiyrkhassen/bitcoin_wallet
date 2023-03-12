@@ -4,11 +4,9 @@ import java.math.BigDecimal
 
 interface TransferInteractor {
 
-    suspend fun getTransactionFee(): BigDecimal
+    fun getTransactionFee(): BigDecimal
 
-    suspend fun getBalance(): BigDecimal
-
-    suspend fun getMinMax(): BigDecimal
+    suspend fun getBalance(): String
 
     suspend fun sendBitcoins()
 }

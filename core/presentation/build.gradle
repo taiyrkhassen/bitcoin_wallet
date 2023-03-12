@@ -36,6 +36,7 @@ android {
 
 dependencies {
     implementation project(path: ':core:domain')
+    implementation project(path: ':config')
 
     api "androidx.core:core-ktx:${libs.core_ktx}"
     api "androidx.appcompat:appcompat:${libs.appcompat}"

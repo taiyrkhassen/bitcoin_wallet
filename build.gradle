@@ -24,6 +24,7 @@ buildscript {
                 androidx_junit          : '1.1.3',
                 androidx_espresso       : '3.4.0',
                 viewmodel               : '2.5.1',
+                bitcoinj                : '0.16.2'
         ]
     }
 }

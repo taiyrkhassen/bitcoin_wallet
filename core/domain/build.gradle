@@ -28,10 +28,17 @@ android {
     kotlinOptions {
         jvmTarget = "${configuration.targetCompatibility}"
     }
+
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 dependencies {
 
+    implementation project(path: ':config')
+
+    // koin
     api "io.insert-koin:koin-android:${libs.koin}"
 
     // timber

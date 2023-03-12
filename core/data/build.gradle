@@ -12,7 +12,6 @@ android {
         targetSdk configuration.targetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -27,10 +26,14 @@ android {
     kotlinOptions {
         jvmTarget = "${configuration.targetCompatibility}"
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
     implementation project(path: ':core:domain')
+    implementation project(path: ':config')
 
     // rest
     implementation "com.squareup.okhttp3:okhttp:${libs.okhttp}"
@@ -39,7 +42,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:${libs.retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${libs.retrofit}"
 
-    testImplementation "junit:junit:${libs.junit}"
-    androidTestImplementation "androidx.test.ext:junit:${libs.androidx_junit}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${libs.androidx_espresso}"
+    //bitcoinj transactions
+    api "org.bitcoinj:bitcoinj-core:${libs.bitcoinj}"
 }
