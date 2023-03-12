@@ -40,6 +40,8 @@ class TransferFragment : BaseUiStateFragment<FragmentTransferBinding, TransferUi
 
     override fun updateUiState(prevUiState: TransferUiState?, uiState: TransferUiState) = with(binding) {
         inclBalance.shimmer.isVisible = uiState.shimmerIsVisible
+        inclBalance.tvAmount.isVisible = !uiState.shimmerIsVisible
+
         inclBalance.tvAmount.text = uiState.balance.toAmount()
         tvFee.text = "Transaction fees: 0.0008 BTC: ${uiState.transactionFee.toAmount()}"
         tvMinMax.text = "Min: ${uiState.minSum} - Max: ${uiState.minSum}"

@@ -33,6 +33,7 @@ class HomeFragment : BaseUiStateFragment<FragmentHomeBinding, HomeUiState, HomeV
     }
 
     override fun setupUi() = with(binding) {
+        rvTransactions.adapter = adapter
     }
 
     @SuppressLint("SetTextI18n")
@@ -44,7 +45,7 @@ class HomeFragment : BaseUiStateFragment<FragmentHomeBinding, HomeUiState, HomeV
         vgEmpty.isVisible = uiState.emptyStateVisible
 
         tvBalanceBtc.text = uiState.btcNumber.toAmount()
-        tvBalanceUsd.text = uiState.btcNumber.toAmount("USD")
+        tvBalanceUsd.text = uiState.balance.toAmount("USD")
 
         val errorMessage = uiState.showExceptionMessage
 
