@@ -2,12 +2,14 @@ package com.wallet.app.home.presentation.mvi
 
 import androidx.lifecycle.viewModelScope
 import com.wallet.app.home.interactors.HomeInteractor
+import com.wallet.app.home.presentation.adapters.wrapper.TransactionWrapper
 import com.wallet.app.presentation.extension.subscribe
 import java.math.BigDecimal
 
 internal class HomeViewModelImpl(
     private val interactor: HomeInteractor
 ) : HomeViewModel(HomeUiState()) {
+
     init {
         getBalance()
         getTransactions()
@@ -20,7 +22,7 @@ internal class HomeViewModelImpl(
                 updateUiState {
                     it.copy(
                         balance = balance,
-                        btcNumber = BigDecimal(0), //todo api
+                        btcNumber = BigDecimal(2), //todo api
                     )
                 }
             },
@@ -45,7 +47,7 @@ internal class HomeViewModelImpl(
             doOnSuccess = { transactions ->
                 updateUiState {
                     it.copy(
-                        transactions = transactions,
+                        transactions = transactions.map { TransactionWrapper(it) },
                         shimmerIsVisible = false,
                         emptyStateVisible = transactions.isEmpty()
                     )

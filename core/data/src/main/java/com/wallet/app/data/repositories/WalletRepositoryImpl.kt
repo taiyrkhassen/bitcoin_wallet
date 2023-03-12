@@ -12,24 +12,26 @@ class WalletRepositoryImpl(
 ) : WalletRepository {
 
     override suspend fun getBalance(): BigDecimal {
-        delay(2000)
-        return BigDecimal(4)
+        return BigDecimal(210020)
     }
 
     override suspend fun getTransactions(): List<Transaction> {
-        delay(4000)
+        delay(3000)
         return listOf(
             Transaction(
+                id = "123",
                 date = Date(),
                 status = Transaction.TransactionStatus.RECEIVED,
                 amount = BigDecimal(9.2329854)
             ),
             Transaction(
+                id = "124",
                 date = Date(),
                 status = Transaction.TransactionStatus.SENT,
                 amount = BigDecimal(2.2329854)
             ),
             Transaction(
+                id = "125",
                 date = Date(),
                 status = Transaction.TransactionStatus.SENT,
                 amount = BigDecimal(8.2329854)

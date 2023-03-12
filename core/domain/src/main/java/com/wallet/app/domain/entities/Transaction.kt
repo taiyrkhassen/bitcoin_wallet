@@ -4,6 +4,7 @@ import java.math.BigDecimal
 import java.util.Date
 
 data class Transaction(
+    val id: String,
     val date: Date,
     val status: TransactionStatus,
     val amount: BigDecimal

@@ -6,6 +6,7 @@ import com.wallet.app.presentation.extension.subscribe
 import com.wallet.app.presentation.navigation.Navigator
 import com.wallet.app.presentation.navigation.StatusPageScreen
 import com.wallet.app.transfer.interactors.TransferInteractor
+import kotlinx.coroutines.delay
 
 class TransferViewModelImpl(
     private val navigator: Navigator,
@@ -27,7 +28,8 @@ class TransferViewModelImpl(
             )
         }
         viewModelScope.subscribe(
-            { interactor.getBalance() },
+            { delay(4000)
+                interactor.getBalance() },
             doOnSuccess = { balance ->
                 updateUiState {
                     it.copy(
