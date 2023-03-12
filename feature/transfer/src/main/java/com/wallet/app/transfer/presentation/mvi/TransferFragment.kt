@@ -29,34 +29,40 @@ class TransferFragment :
 
     override fun setupUi() = with(binding) {
         edAddress.doOnTextChanged { text, start, before, count ->
+            tilAddress.error = null
             viewModel.onAddressChanged(text?.toString())
         }
         edAmount.doOnTextChanged { text, start, before, count ->
-            viewModel.onAmountChanged(text?.toString())
+            viewModel.onAmountChanged(text?.toString().orEmpty())
         }
         edNote.doOnTextChanged { text, start, before, count ->
             viewModel.onNoteChanged(text?.toString())
         }
         btnSend.setOnClickListener {
-            viewModel.sendBitcoins() //todo api
+            viewModel.sendBitcoins()
         }
     }
 
     @SuppressLint("SetTextI18n")
     override fun updateUiState(prevUiState: TransferUiState?, uiState: TransferUiState) =
         with(binding) {
+
             inclBalance.shimmer.isVisible = uiState.shimmerIsVisible
             inclBalance.tvAmount.isVisible = !uiState.shimmerIsVisible
+            inclBalance.tvAmount.text = uiState.balance.toAmount()
 
-            inclBalance.tvAmount.text = uiState.balance?.toAmount()
+            tvFee.text = "Transaction fees: ${uiState.transactionFee.toAmount()}"
 
-            tvFee.isVisible = uiState.amountForFees != BigDecimal(0)
-            tvFee.text =
-                "Transaction fees: ${uiState.amountForFees}: ${uiState.transactionFee.toAmount()}"
+            val errorMessage = uiState.showExceptionMessage
 
-            tilAddress.error = uiState.showExceptionMessage
-            Toast.makeText(requireContext(), uiState.showExceptionMessage, Toast.LENGTH_LONG).show()
 
+            tilAddress.error = errorMessage
+
+            if (!errorMessage.isNullOrEmpty()) Toast.makeText(
+                requireContext(),
+                errorMessage,
+                Toast.LENGTH_LONG
+            ).show()
             btnSend.isEnabled = uiState.isButtonEnabled
         }
 

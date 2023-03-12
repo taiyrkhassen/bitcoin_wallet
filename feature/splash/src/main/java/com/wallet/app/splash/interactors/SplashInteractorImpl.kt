@@ -7,5 +7,6 @@ internal class SplashInteractorImpl(
 ) : SplashInteractor {
 
     override suspend fun getBalance() = walletRepository.getBalance()
+    override suspend fun getAddress() = walletRepository.getAddress()
 
 }

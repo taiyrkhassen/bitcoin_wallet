@@ -9,5 +9,5 @@ interface TransferRepository {
 
     fun getTransactionFee(): BigDecimal
 
-    suspend fun sendBitcoins()
+    suspend fun sendBitcoins(amounts: List<String>, addresses: List<String>, label: String?)
 }

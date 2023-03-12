@@ -6,7 +6,7 @@ interface TransferInteractor {
 
     fun getTransactionFee(): BigDecimal
 
-    suspend fun getBalance(): String
+    suspend fun getBalance(): BigDecimal
 
-    suspend fun sendBitcoins()
+    suspend fun sendBitcoins(amount: List<String>, addresses: List<String>, label: String? = null)
 }

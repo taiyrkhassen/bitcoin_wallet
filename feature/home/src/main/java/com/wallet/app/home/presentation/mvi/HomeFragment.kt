@@ -44,12 +44,18 @@ class HomeFragment : BaseUiStateFragment<FragmentHomeBinding, HomeUiState, HomeV
         rvTransactions.isVisible = !uiState.emptyStateVisible
         vgEmpty.isVisible = uiState.emptyStateVisible
 
-        tvBalanceBtc.text = uiState.btcNumber.toAmount()
-        tvBalanceUsd.text = uiState.balance.toAmount("USD")
+        tvBalanceBtc.text = uiState.btcNumber?.toAmount()
+
+        tvBalanceUsd.isVisible = uiState.balance != null
+        tvBalanceUsd.text = uiState.balance?.toAmount("USD")
 
         val errorMessage = uiState.showExceptionMessage
 
-        if (!errorMessage.isNullOrEmpty()) Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
+        if (!errorMessage.isNullOrEmpty()) Toast.makeText(
+            requireContext(),
+            errorMessage,
+            Toast.LENGTH_LONG
+        ).show()
     }
 
 }

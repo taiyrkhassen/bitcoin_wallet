@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.wallet.app.home.interactors.HomeInteractor
 import com.wallet.app.home.presentation.adapters.wrapper.TransactionWrapper
 import com.wallet.app.presentation.extension.subscribe
-import java.math.BigDecimal
 
 internal class HomeViewModelImpl(
     private val interactor: HomeInteractor
@@ -21,17 +20,15 @@ internal class HomeViewModelImpl(
             doOnSuccess = { balance ->
                 updateUiState {
                     it.copy(
-                        balance = balance,
-                        btcNumber = "", //todo api
+                        balance = null, //todo api
+                        btcNumber = balance,
                     )
                 }
             },
             doOnError = { error ->
                 updateUiState {
                     it.copy(
-                        showExceptionMessage = "Error cant get balance ${error.localizedMessage}",
-                        btcNumber = "",
-                        balance = ""
+                        showExceptionMessage = "Error cant get balance ${error.localizedMessage}"
                     )
                 }
             }

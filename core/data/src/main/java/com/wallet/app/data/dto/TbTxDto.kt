@@ -20,7 +20,7 @@ data class Tx(
     @SerializedName("senders")
     val senders: List<String>? = null,
     @SerializedName("time")
-    val time: Long? = null,
+    val time: Long?,
     @SerializedName("total_amount_sent")
     val total_amount_sent: String? = null,
     @SerializedName("txid")
@@ -28,7 +28,7 @@ data class Tx(
 ) {
     fun toDomain() = TransactionHistory(
         id = txid ?: "null",
-        date = time?.let { Date(it) } ?: Date(),
+        date = time?.let {  Date(Date().time - it) } ?: Date(),
         status = getType(),
         amount = getAmount()
     )

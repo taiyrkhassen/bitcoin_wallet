@@ -8,12 +8,12 @@ import retrofit2.http.Query
 
 interface WalletApi {
     @GET("api/v2/get_balance/")
-    fun getTbBalance(
+    suspend fun getTbBalance(
         @Query("api_key") apiKey: String = TESTNET_BITCOIN_KEY
     ): TbBalanceDto
 
     @GET("api/v2/get_new_address/")
-    fun getTbAddress(
+    suspend fun getTbAddress(
         @Query("api_key") apiKey: String = TESTNET_BITCOIN_KEY
     ): TbNewAddressDto
 

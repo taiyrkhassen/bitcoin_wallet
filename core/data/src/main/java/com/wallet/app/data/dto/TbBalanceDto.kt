@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class TbBalanceDto(
     @SerializedName("data")
     val data: Data,
-    @SerializedName("data")
+    @SerializedName("status")
     val status: String
 ) {
     data class Data(
