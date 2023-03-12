@@ -18,6 +18,6 @@ class TransferInteractorImpl(
     }
 
     override suspend fun sendBitcoins() {
-        transferRepository.sendBitcoin()
+        transferRepository.sendBitcoins()
     }
 }
