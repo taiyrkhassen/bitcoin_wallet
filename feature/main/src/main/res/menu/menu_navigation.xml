@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/HomeButtonNavigation"
+        android:icon="@drawable/ic_house_24"
+        android:title="Home"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/TransferButtonNavigation"
+        android:icon="@drawable/ic_transfer_24"
+        android:title="Transfer"
+        app:showAsAction="ifRoom" />
+
+</menu>

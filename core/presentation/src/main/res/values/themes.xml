@@ -1,0 +1,120 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.BitcoinWallet" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+
+
+        <item name="fontFamilyLight">@font/sf_pro_light</item>
+        <item name="fontFamilyRegular">@font/sf_pro_regular</item>
+        <item name="fontFamilyMedium">@font/sf_pro_medium</item>
+        <item name="fontFamilyBold">@font/sf_pro_bold</item>
+
+        <item name="android:fontFamily">?attr/fontFamilyRegular</item>
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#1B1E24</item>
+        <item name="colorPrimaryDark">#1B1E24</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">#22262E</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="colorAccent">#0AA699</item>
+        <item name="dividerColor">@color/grey_divider</item>
+        <item name="linkColor">#B314C4FC</item>
+
+        <item name="android:textColorPrimary">#FFFFFF</item>
+<!--        <item name="android:textColorSecondary">#8B91A0</item>-->
+        <item name="android:textColorHint">#8B91A0</item>
+
+        <item name="android:windowBackground">?attr/colorPrimary</item>
+        <item name="android:windowSplashScreenBackground" tools:targetApi="s">?attr/colorPrimary</item>
+
+    </style>
+
+    <style name="Wallet.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Primary">
+        <item name="android:background">?android:attr/windowBackground</item>
+    </style>
+
+    <style name="Wallet.BottomRoundImageView" parent="">
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="Wallet.TextView.Title.Accent">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+    </style>
+
+    <style name="Wallet.TextView.Title" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="fontWeight">700</item>
+        <item name="android:textSize">18sp</item>
+        <item name="lineHeight">24dp</item>
+        <item name="android:fontFamily">?attr/fontFamilyBold</item>
+    </style>
+
+    <style name="Wallet.TextView.MiniDescription" parent="Widget.MaterialComponents.TextView">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">10sp</item>
+        <item name="lineHeight">12dp</item>
+        <item name="android:fontFamily">?attr/fontFamilyMedium</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="Wallet.TextView.Title.Medium">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">20dp</item>
+        <item name="android:fontFamily">?attr/fontFamilyMedium</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Wallet.TextView.Title.Large" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="fontWeight">700</item>
+        <item name="android:textSize">24sp</item>
+        <item name="lineHeight">32dp</item>
+        <item name="android:fontFamily">?attr/fontFamilyBold</item>
+    </style>
+
+    <style name="Wallet.ShimmerFrameLayout" parent="">
+        <item name="shimmer_base_color">#66FFFFFF</item>
+        <item name="shimmer_repeat_delay">300</item>
+        <item name="shimmer_duration">1500</item>
+        <item name="shimmer_fixed_width">200dp</item>
+    </style>
+
+    <style name="Wallet.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">4dp</item>
+        <item name="boxCornerRadiusTopEnd">4dp</item>
+        <item name="boxCornerRadiusBottomStart">4dp</item>
+        <item name="boxCornerRadiusBottomEnd">4dp</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeColor">?attr/colorSecondary</item>
+        <item name="boxBackgroundColor">?attr/colorSecondary</item>
+        <item name="hintTextColor">?attr/colorAccent</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorHint">#8B91A0</item>
+    </style>
+
+
+    <style name="Wallet.Button.Accent" parent="Widget.MaterialComponents.Button">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/color_button_text_accent</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:fontFamily">?attr/fontFamilyBold</item>
+        <item name="backgroundTint">@color/color_button_accent</item>
+        <item name="background">@color/color_button_accent</item>
+        <item name="textAllCaps">false</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+
+</resources>

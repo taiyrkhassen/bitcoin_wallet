@@ -1,0 +1,27 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+rootProject.name = "Bitcoin wallet"
+
+include ':app'
+include ':feature:transfer'
+include ':feature:home'
+include ':core:data'
+include ':core:domain'
+include ':core:presentation'
+include ':feature:splash'
+include ':feature:main'
+include ':feature:statuspage'
+include ':config'

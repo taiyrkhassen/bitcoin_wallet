@@ -1,0 +1,58 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
+}
+
+android {
+    compileSdk configuration.compileSdk
+
+    defaultConfig {
+        minSdk configuration.minSdk
+        targetSdk configuration.targetSdk
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility configuration.sourceCompatibility
+        targetCompatibility configuration.targetCompatibility
+    }
+    kotlinOptions {
+        jvmTarget = "${configuration.targetCompatibility}"
+    }
+    buildFeatures {
+        viewBinding true
+    }
+
+    packagingOptions {
+        exclude 'lib/x86_64/darwin/libscrypt.dylib'
+        exclude 'lib/x86_64/freebsd/libscrypt.so'
+        exclude 'lib/x86_64/linux/libscrypt.so'
+        pickFirst 'paymentrequest.proto'
+    }
+}
+
+dependencies {
+    implementation project(path: ':core:domain')
+    implementation project(path: ':config')
+
+    // rest
+    implementation "com.squareup.okhttp3:okhttp:${libs.okhttp}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${libs.okhttp}"
+    implementation 'com.github.mrmike:ok2curl:0.8.0'
+    implementation "com.squareup.retrofit2:retrofit:${libs.retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${libs.retrofit}"
+
+    //bitcoinj transactions
+   // api "org.bitcoinj:bitcoinj-core:${libs.bitcoinj}"
+
+    implementation 'com.android.support:multidex:2.0.1'
+
+    implementation 'com.github.BlockIo:block_io-java:2.0.1-beta'
+}
