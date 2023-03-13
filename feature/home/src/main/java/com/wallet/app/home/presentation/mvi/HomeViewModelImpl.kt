@@ -27,7 +27,8 @@ internal class HomeViewModelImpl(
                 }
             },
             doOnError = { error ->
-                val message = (error as WalletHttpException).errorMessage
+                val message = if(error is WalletHttpException) error.errorMessage
+                else "No internet connection"
                 updateUiState {
                     it.copy(
                         showExceptionMessage = "Error cant get balance $message"
@@ -53,7 +54,8 @@ internal class HomeViewModelImpl(
                 }
             },
             doOnError = { error ->
-                val message = (error as WalletHttpException).errorMessage
+                val message = if(error is WalletHttpException) error.errorMessage
+                else "No internet connection"
                 updateUiState {
                     it.copy(
                         showExceptionMessage = "Error cant get transactions $message",

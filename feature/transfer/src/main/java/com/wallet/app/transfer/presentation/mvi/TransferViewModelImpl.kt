@@ -40,7 +40,8 @@ internal class TransferViewModelImpl(
                 }
             },
             doOnError = { error ->
-                val message = (error as WalletHttpException).errorMessage
+                val message = if(error is WalletHttpException) error.errorMessage
+                else "No internet connection"
                 updateUiState {
                     it.copy(
                         showExceptionMessage = "Error cant get balance $message",
@@ -61,7 +62,8 @@ internal class TransferViewModelImpl(
                 navigator.navigateTo(StatusPageScreen(txId))
             },
             doOnError = { error ->
-                val message = (error as WalletHttpException).errorMessage
+                val message = if(error is WalletHttpException) error.errorMessage
+                else "No internet connection"
                 updateUiState {
                     it.copy(
                         showExceptionMessage = "Error cant send bitcoins $message",
