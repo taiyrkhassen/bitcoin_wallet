@@ -1,6 +1,20 @@
 ## Bitcoin Wallet Application
 
-Sample bitcoin wallet app which using <a href="https://github.com/BlockIo/block_io-java">BlockIo SDJ</a> and <a href="https://bitcoinj.github.io/">BitcoinJ SDK</a>.
+Sample bitcoin wallet app which using <a href="https://github.com/BlockIo/block_io-java">BlockIo SDJ</a> and <a href="https://bitcoinj.github.io/">BitcoinJ SDK</a>. <br/>
+Currently it using my static API_KEY to tBtc network, in the future there will be a new functionality for creating a wallet and choosing a network.
+
+# Architecture
+* Multi module architecture where each feature is a module
+* Single activity
+* Architecture pattern - MVI
+
+# Technology stack
+* Koin
+* Coroutines
+* Retrofit
+* MVI
+* Clean architecture
+* Cicerone
 
 # Functionality
 
