@@ -3,7 +3,8 @@ package com.wallet.app.data.network.api
 import com.wallet.app.config.TESTNET_BITCOIN_KEY
 import com.wallet.app.data.dto.TbPreparationDto
 import com.wallet.app.data.dto.TbTransactionDto
-import com.wallet.app.data.requests.SignedTransactionRequest
+import com.wallet.app.data.dto.TbTransactionSuccessDto
+import org.json.simple.JSONObject
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -27,6 +28,6 @@ interface TransactionsApi {
     @POST("api/v2/submit_transaction/")
     suspend fun submitTransaction(
         @Query("api_key") apiKey: String = TESTNET_BITCOIN_KEY,
-        @Body signedTransaction: SignedTransactionRequest
-    )
+        @Body signedTransaction: JSONObject
+    ): TbTransactionSuccessDto
 }

@@ -1,6 +1,7 @@
 package com.wallet.app.transfer.presentation.mvi
 
 import androidx.lifecycle.viewModelScope
+import com.wallet.app.domain.exceptions.WalletHttpException
 import com.wallet.app.presentation.extension.isLessThan
 import com.wallet.app.presentation.extension.isZero
 import com.wallet.app.presentation.extension.subscribe
@@ -39,9 +40,10 @@ internal class TransferViewModelImpl(
                 }
             },
             doOnError = { error ->
+                val message = (error as WalletHttpException).errorMessage
                 updateUiState {
                     it.copy(
-                        showExceptionMessage = "Error cant get balance ${error.localizedMessage}",
+                        showExceptionMessage = "Error cant get balance $message",
                         shimmerIsVisible = true
                     )
                 }
@@ -55,13 +57,14 @@ internal class TransferViewModelImpl(
 
         viewModelScope.subscribe(
             { interactor.sendBitcoins(amount = amount, addresses = address, label = newLabel) },
-            doOnSuccess = { balance ->
-                navigator.navigateTo(StatusPageScreen)
+            doOnSuccess = { txId ->
+                navigator.navigateTo(StatusPageScreen(txId))
             },
             doOnError = { error ->
+                val message = (error as WalletHttpException).errorMessage
                 updateUiState {
                     it.copy(
-                        showExceptionMessage = "Error cant send bitcoins ${error.localizedMessage}",
+                        showExceptionMessage = "Error cant send bitcoins $message",
                     )
                 }
             }
@@ -79,6 +82,7 @@ internal class TransferViewModelImpl(
             }
             return
         }
+
         checkButtonEnable()
     }
 
@@ -94,7 +98,7 @@ internal class TransferViewModelImpl(
     private fun checkButtonEnable() {
         updateUiState {
             it.copy(
-                isButtonEnabled = newAmount!=null && newAmount?.isZero() == false && !newAddress.isNullOrEmpty()
+                isButtonEnabled = newAmount != null && newAmount?.isZero() == false && !newAddress.isNullOrEmpty()
             )
         }
     }

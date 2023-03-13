@@ -11,7 +11,6 @@ import com.wallet.app.presentation.ui.base.BaseUiStateFragment
 import com.wallet.app.transfer.databinding.FragmentTransferBinding
 import com.wallet.app.transfer.di.TransferModule
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.math.BigDecimal
 
 class TransferFragment :
     BaseUiStateFragment<FragmentTransferBinding, TransferUiState, TransferViewModel>(
@@ -29,10 +28,10 @@ class TransferFragment :
 
     override fun setupUi() = with(binding) {
         edAddress.doOnTextChanged { text, start, before, count ->
-            tilAddress.error = null
             viewModel.onAddressChanged(text?.toString())
         }
         edAmount.doOnTextChanged { text, start, before, count ->
+            tilAmount.error = null
             viewModel.onAmountChanged(text?.toString().orEmpty())
         }
         edNote.doOnTextChanged { text, start, before, count ->
@@ -56,7 +55,7 @@ class TransferFragment :
             val errorMessage = uiState.showExceptionMessage
 
 
-            tilAddress.error = errorMessage
+            tilAmount.error = errorMessage
 
             if (!errorMessage.isNullOrEmpty()) Toast.makeText(
                 requireContext(),

@@ -5,6 +5,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.telephony.TelephonyManager
+import com.google.gson.Gson
+import okhttp3.ResponseBody
 
 private fun Context.connectivityManager(): ConnectivityManager {
     return getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -68,5 +70,19 @@ private fun isMobileNetworkFast(type: Int): Boolean {
         TelephonyManager.NETWORK_TYPE_UNKNOWN -> false
         else -> false
     }
+}
+
+fun <T> String.fromJson(clazz: Class<T>): T? {
+    var obj: T?
+    try {
+        obj = Gson().fromJson<T>(this, clazz)
+    } catch (e: Exception) {
+        obj = null
+    }
+    return obj
+}
+
+fun <T> ResponseBody.fromJson(clazz: Class<T>): T? {
+    return string().fromJson(clazz)
 }
 

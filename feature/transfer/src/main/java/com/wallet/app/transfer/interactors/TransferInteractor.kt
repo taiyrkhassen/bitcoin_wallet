@@ -8,5 +8,5 @@ interface TransferInteractor {
 
     suspend fun getBalance(): BigDecimal
 
-    suspend fun sendBitcoins(amount: List<String>, addresses: List<String>, label: String? = null)
+    suspend fun sendBitcoins(amount: List<String>, addresses: List<String>, label: String? = null): String
 }

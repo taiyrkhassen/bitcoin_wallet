@@ -1,6 +1,7 @@
 package com.wallet.app.home.presentation.mvi
 
 import androidx.lifecycle.viewModelScope
+import com.wallet.app.domain.exceptions.WalletHttpException
 import com.wallet.app.home.interactors.HomeInteractor
 import com.wallet.app.home.presentation.adapters.wrapper.TransactionWrapper
 import com.wallet.app.presentation.extension.subscribe
@@ -26,9 +27,10 @@ internal class HomeViewModelImpl(
                 }
             },
             doOnError = { error ->
+                val message = (error as WalletHttpException).errorMessage
                 updateUiState {
                     it.copy(
-                        showExceptionMessage = "Error cant get balance ${error.localizedMessage}"
+                        showExceptionMessage = "Error cant get balance $message"
                     )
                 }
             }
@@ -51,9 +53,10 @@ internal class HomeViewModelImpl(
                 }
             },
             doOnError = { error ->
+                val message = (error as WalletHttpException).errorMessage
                 updateUiState {
                     it.copy(
-                        showExceptionMessage = "Error cant get transactions ${error.localizedMessage}",
+                        showExceptionMessage = "Error cant get transactions $message",
                         shimmerIsVisible = false,
                         emptyStateVisible = true
                     )

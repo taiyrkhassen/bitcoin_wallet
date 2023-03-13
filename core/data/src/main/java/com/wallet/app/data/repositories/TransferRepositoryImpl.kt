@@ -1,12 +1,10 @@
 package com.wallet.app.data.repositories
 
-import com.google.gson.Gson
 import com.wallet.app.config.TESTNET_BITCOIN_KEY
 import com.wallet.app.config.TRANSACTION_FEE
 import com.wallet.app.config.TRANSACTION_RECEIVED
 import com.wallet.app.config.TRANSACTION_SENT
 import com.wallet.app.data.network.api.TransactionsApi
-import com.wallet.app.data.requests.SignedTransactionRequest
 import com.wallet.app.domain.entities.TransactionHistory
 import com.wallet.app.domain.repositories.TransferRepository
 import lib.blockIo.BlockIo
@@ -15,7 +13,6 @@ import java.math.BigDecimal
 
 class TransferRepositoryImpl(
     private val transferApi: TransactionsApi,
-    private val gson: Gson,
     private val blockIo: BlockIo
 ) : TransferRepository {
 
@@ -33,7 +30,7 @@ class TransferRepositoryImpl(
         amounts: List<String>,
         addresses: List<String>,
         label: String?
-    ) {
+    ): String {
         val preparedData = transferApi.prepareTransaction(TESTNET_BITCOIN_KEY, amounts, addresses)
 
         val jsonData = label?.let {
@@ -55,13 +52,8 @@ class TransferRepositoryImpl(
             )
         )
 
-
-        val createdSignedTr = BlockIo(TESTNET_BITCOIN_KEY).CreateAndSignTransaction(jsonData)
-        //blockIo.SubmitTransaction(JSONObject(mapOf("transaction_data" to createdSignedTr)))["data"]
-
-        val signedBodyRequest =
-            gson.fromJson(createdSignedTr.toString(), SignedTransactionRequest::class.java)
-
-        transferApi.submitTransaction(signedTransaction = signedBodyRequest)
+        val createdSignedTr = blockIo.CreateAndSignTransaction(jsonData)
+        val json = JSONObject(mapOf("transaction_data" to createdSignedTr))
+        return transferApi.submitTransaction(signedTransaction = json).getTxId()
     }
 }
