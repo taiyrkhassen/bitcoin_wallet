@@ -3,9 +3,9 @@
 Sample bitcoin wallet app which using <a href="https://github.com/BlockIo/block_io-java">BlockIo SDJ</a> and <a href="https://bitcoinj.github.io/">BitcoinJ SDK</a>.
 
 # Architecture
-*Multi module architecture where each feature is a module
-*Single activity
-*Architecture pattern - MVI
+* Multi module architecture where each feature is a module
+* Single activity
+* Architecture pattern - MVI
 
 # Technology stack
 * Koin
