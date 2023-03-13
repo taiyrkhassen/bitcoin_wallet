@@ -45,10 +45,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:text="Your funds have been sent!"
+        android:maxLength="350"
         android:textColor="?attr/linkColor"
+        android:gravity="center"
         android:textSize="17sp"
-        tools:text="Your transaction ID is af8ee4b868fee" />
+        tools:text="Your transaction ID is 21023323k3fiief20" />
 
     <View
         android:layout_width="1dp"

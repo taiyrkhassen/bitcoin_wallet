@@ -31,7 +31,7 @@ class StatusPageFragment :
             viewModel.onButtonSendClicked()
         }
         val txiD = requireArguments().getString(ARG_TX_ID)
-        tvLink.text = txiD
+        tvLink.text = "Your transaction ID is: $txiD"
         tvLink.setOnClickListener {
             val url = "https://blockstream.info/tx/$txiD"
             val i = Intent(Intent.ACTION_VIEW)
