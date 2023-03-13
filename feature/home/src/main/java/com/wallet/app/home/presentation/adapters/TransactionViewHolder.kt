@@ -3,7 +3,7 @@ package com.wallet.app.home.presentation.adapters
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.core.content.ContextCompat
-import com.wallet.app.domain.entities.Transaction
+import com.wallet.app.domain.entities.TransactionHistory
 import com.wallet.app.home.R
 import com.wallet.app.home.databinding.ItemTransactionBinding
 import com.wallet.app.home.presentation.adapters.wrapper.TransactionWrapper
@@ -26,16 +26,16 @@ class TransactionViewHolder(
             val item = entity.item
             tvTitleStatus.text = "Bitcoin"
             sivArrowStatus.setImageDrawable(ContextCompat.getDrawable(root.context, item.getArrow()))
-            tvAmount.text = "${item.getSign()}${item.amount.setScale(5, RoundingMode.DOWN)} BTC"
-            tvDate.text = item.date.toFormattedString("dd-MM-yyyy HH:mm:ss:aa")
+            tvAmount.text = "${item.getSign()}${item.amount} tBTC"
+            tvDate.text = item.date.toFormattedString("dd MMMM yyyy, HH:mm:ss:aa")
         }
 
-    private fun Transaction.getSign(): String =
-        if (this.status == Transaction.TransactionStatus.RECEIVED) "+"
+    private fun TransactionHistory.getSign(): String =
+        if (this.status == TransactionHistory.TransactionStatus.RECEIVED) "+"
         else "-"
 
-    private fun Transaction.getArrow(): Int =
-        if (this.status == Transaction.TransactionStatus.RECEIVED) R.drawable.ic_arrow_down
+    private fun TransactionHistory.getArrow(): Int =
+        if (this.status == TransactionHistory.TransactionStatus.RECEIVED) R.drawable.ic_arrow_down
         else R.drawable.ic_arrow_up
 
     private fun startShimmer() = with(binding) {

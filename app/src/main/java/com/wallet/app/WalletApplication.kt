@@ -6,14 +6,15 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.wallet.app.data.di.NetworkModule
 import com.wallet.app.data.di.RepositoryModule
-import com.wallet.app.data.network.di.NetworkModule
 import com.wallet.app.di.MainActModule
 import com.wallet.app.di.NavigationModule
 import com.wallet.app.di.WalletAppModule
 import com.wallet.app.home.di.HomeModule
 import com.wallet.app.main.di.MainModule
 import com.wallet.app.splash.di.SplashModule
+import com.wallet.app.statuspage.di.StatusModule
 import com.wallet.app.transfer.di.TransferModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -33,13 +34,14 @@ class WalletApplication : Application() {
         return listOf(
             MainActModule().module,
             WalletAppModule().module,
-            NetworkModule().module,
             MainModule().module,
             RepositoryModule().module,
             SplashModule().module,
             NavigationModule().module,
             HomeModule().module,
-            TransferModule().module
+            TransferModule().module,
+            StatusModule().module,
+            NetworkModule().module
         )
     }
 

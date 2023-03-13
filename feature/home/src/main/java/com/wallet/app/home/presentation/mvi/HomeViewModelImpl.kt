@@ -1,10 +1,10 @@
 package com.wallet.app.home.presentation.mvi
 
 import androidx.lifecycle.viewModelScope
+import com.wallet.app.domain.exceptions.WalletHttpException
 import com.wallet.app.home.interactors.HomeInteractor
 import com.wallet.app.home.presentation.adapters.wrapper.TransactionWrapper
 import com.wallet.app.presentation.extension.subscribe
-import java.math.BigDecimal
 
 internal class HomeViewModelImpl(
     private val interactor: HomeInteractor
@@ -21,17 +21,16 @@ internal class HomeViewModelImpl(
             doOnSuccess = { balance ->
                 updateUiState {
                     it.copy(
-                        balance = balance,
-                        btcNumber = BigDecimal(2), //todo api
+                        balance = null, //todo api
+                        btcNumber = balance,
                     )
                 }
             },
             doOnError = { error ->
+                val message = (error as WalletHttpException).errorMessage
                 updateUiState {
                     it.copy(
-                        showExceptionMessage = "Error cant get balance ${error.localizedMessage}",
-                        btcNumber = BigDecimal(0),
-                        balance = BigDecimal(0)
+                        showExceptionMessage = "Error cant get balance $message"
                     )
                 }
             }
@@ -54,9 +53,10 @@ internal class HomeViewModelImpl(
                 }
             },
             doOnError = { error ->
+                val message = (error as WalletHttpException).errorMessage
                 updateUiState {
                     it.copy(
-                        showExceptionMessage = "Error cant get transactions ${error.localizedMessage}",
+                        showExceptionMessage = "Error cant get transactions $message",
                         shimmerIsVisible = false,
                         emptyStateVisible = true
                     )

@@ -1,29 +1,59 @@
-package com.wallet.app.data.network.di
+package com.wallet.app.data.di
 
 import com.google.gson.Gson
 import com.moczul.ok2curl.CurlInterceptor
 import com.moczul.ok2curl.logger.Logger
+import com.wallet.app.config.PRIVATE_PIN
+import com.wallet.app.config.TESTNET_BITCOIN_KEY
 import com.wallet.app.data.BuildConfig
+import com.wallet.app.data.network.api.TransactionsApi
 import com.wallet.app.data.network.api.WalletApi
+import com.wallet.app.data.network.interceptors.ConnectionInterceptor
+import com.wallet.app.data.network.interceptors.ErrorInterceptor
 import com.wallet.app.domain.di.BaseModule
-import okhttp3.ConnectionPool
+import lib.blockIo.BlockIo
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.module.Module
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 class NetworkModule : BaseModule() {
 
+    private companion object {
+        const val BLOCK_IO_RETROFIT = "block_io_retrofit"
+        const val BLOCK_IO_BASE_URL = "https://block.io/"
+    }
+
     override val module: Module = module {
-        factory { provideWalletApi(get()) }
+        single { ConnectionInterceptor(get()) }
+        single { HttpLoggingInterceptor() }
+        single { ErrorInterceptor() }
         factory { provideConverterFactory(get()) }
-        factory { provideRetrofit(get()) }
+        factory { Gson() }
+
+        // initiate the BlockIo library with the API Key and Secret PIN
+        single { BlockIo(TESTNET_BITCOIN_KEY, PRIVATE_PIN) }
+
+        factory(named(BLOCK_IO_RETROFIT)) {
+            provideRetrofit(
+                gsonConverterFactory = get(),
+                interceptors = listOf(
+                    get<HttpLoggingInterceptor>(),
+                    get<ErrorInterceptor>()
+                ).toTypedArray(),
+                BLOCK_IO_BASE_URL
+            )
+        }
+
+        //api
+        factory { provideWalletApi(get(named(BLOCK_IO_RETROFIT))) }
+        factory { provideTransactionApi(get(named(BLOCK_IO_RETROFIT))) }
     }
 
     private fun provideConverterFactory(gson: Gson): Converter.Factory {
@@ -33,14 +63,14 @@ class NetworkModule : BaseModule() {
     private fun provideRetrofit(
         gsonConverterFactory: Converter.Factory,
         vararg interceptors: Interceptor,
+        baseUrl: String
     ): Retrofit {
         val client = buildOkHttpClient(*interceptors)
-        return buildRetrofit(client, gsonConverterFactory)
+        return buildRetrofit(client, gsonConverterFactory, baseUrl)
     }
 
     private fun buildOkHttpClient(vararg interceptors: Interceptor): OkHttpClient {
         return OkHttpClient.Builder()
-            .retryOnConnectionFailure()
             .apply { interceptors.forEach { addInterceptor(it) } }
             .apply {
                 if (BuildConfig.DEBUG) {
@@ -55,22 +85,13 @@ class NetworkModule : BaseModule() {
             .build()
     }
 
-    private fun OkHttpClient.Builder.retryOnConnectionFailure(): OkHttpClient.Builder {
-        this.retryOnConnectionFailure(true)
-        this.connectionPool(ConnectionPool(0, 1, TimeUnit.NANOSECONDS))
-        return this
-    }
-
     private fun buildRetrofit(
         client: OkHttpClient,
-        converterFactory: Converter.Factory
+        converterFactory: Converter.Factory,
+        baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
-            /**
-             * baseUrl is not used here because domain provided dynamically in interceptor
-             * @see DomainInterceptor
-             */
-            .baseUrl("http://localhost/")
+            .baseUrl(baseUrl)
             .client(client)
             .addConverterFactory(converterFactory)
             .build()
@@ -78,5 +99,9 @@ class NetworkModule : BaseModule() {
 
     private fun provideWalletApi(retrofit: Retrofit): WalletApi {
         return retrofit.create(WalletApi::class.java)
+    }
+
+    private fun provideTransactionApi(retrofit: Retrofit): TransactionsApi {
+        return retrofit.create(TransactionsApi::class.java)
     }
 }

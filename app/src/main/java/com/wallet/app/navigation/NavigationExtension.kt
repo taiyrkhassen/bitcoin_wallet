@@ -12,14 +12,14 @@ import com.wallet.app.presentation.navigation.StatusPageScreen
 import com.wallet.app.presentation.navigation.TransferScreen
 import com.wallet.app.splash.presentation.SplashFragment
 import com.wallet.app.transfer.presentation.mvi.TransferFragment
-import com.wallet.app.transfer.presentation.mvi.status.StatusPageFragment
+import com.wallet.app.statuspage.presentation.StatusPageFragment
 
 fun NavigationScreen.toCiceroneScreen(): Screen? {
     return when (this) {
         is SplashScreen -> FragmentScreen { SplashFragment.newInstance() }
         is MainScreen -> FragmentScreen { MainFragment.newInstance() }
         is HomeScreen -> FragmentScreen { HomeFragment.newInstance() }
-        is StatusPageScreen -> FragmentScreen { StatusPageFragment.newInstance() }
+        is StatusPageScreen -> FragmentScreen { StatusPageFragment.newInstance(txId) }
 
         is TransferScreen -> FragmentScreen { TransferFragment.newInstance() }
         else -> null

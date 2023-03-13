@@ -28,10 +28,17 @@ android {
     kotlinOptions {
         jvmTarget = "${configuration.targetCompatibility}"
     }
+
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 dependencies {
 
+    implementation project(path: ':config')
+
+    // koin
     api "io.insert-koin:koin-android:${libs.koin}"
 
     // timber
@@ -47,6 +54,8 @@ dependencies {
 
     //Joda time
     api "net.danlew:android.joda:2.10.6"
+
+    implementation 'com.github.BlockIo:block_io-java:2.0.1-beta'
 
     testImplementation "junit:junit:${libs.junit}"
     androidTestImplementation "androidx.test.ext:junit:${libs.androidx_junit}"

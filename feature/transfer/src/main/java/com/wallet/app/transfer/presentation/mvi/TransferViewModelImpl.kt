@@ -1,14 +1,16 @@
 package com.wallet.app.transfer.presentation.mvi
 
 import androidx.lifecycle.viewModelScope
-import com.wallet.app.presentation.extension.isValidEmail
+import com.wallet.app.domain.exceptions.WalletHttpException
+import com.wallet.app.presentation.extension.isLessThan
+import com.wallet.app.presentation.extension.isZero
 import com.wallet.app.presentation.extension.subscribe
 import com.wallet.app.presentation.navigation.Navigator
 import com.wallet.app.presentation.navigation.StatusPageScreen
 import com.wallet.app.transfer.interactors.TransferInteractor
-import kotlinx.coroutines.delay
+import java.math.BigDecimal
 
-class TransferViewModelImpl(
+internal class TransferViewModelImpl(
     private val navigator: Navigator,
     private val interactor: TransferInteractor
 ) : TransferViewModel(TransferUiState()) {
@@ -17,31 +19,31 @@ class TransferViewModelImpl(
         getBalance()
     }
 
-    private var newEmail: String? = null
+    private var newAmount: BigDecimal? = null
+
     private var newAddress: String? = null
-    private var newNote: String? = null
+    private var newLabel: String? = null
+
+    private var currentBalance: BigDecimal? = null
 
     private fun getBalance() {
-        updateUiState {
-            it.copy(
-                shimmerIsVisible = true
-            )
-        }
         viewModelScope.subscribe(
-            { delay(4000)
-                interactor.getBalance() },
+            { interactor.getBalance() },
             doOnSuccess = { balance ->
+                currentBalance = balance
                 updateUiState {
                     it.copy(
                         balance = balance,
-                        shimmerIsVisible = false
+                        shimmerIsVisible = false,
+                        transactionFee = interactor.getTransactionFee()
                     )
                 }
             },
             doOnError = { error ->
+                val message = (error as WalletHttpException).errorMessage
                 updateUiState {
                     it.copy(
-                        showExceptionMessage = "Error cant get balance ${error.localizedMessage}",
+                        showExceptionMessage = "Error cant get balance $message",
                         shimmerIsVisible = true
                     )
                 }
@@ -50,23 +52,37 @@ class TransferViewModelImpl(
     }
 
     override fun sendBitcoins() {
+        val amount = newAmount?.let { listOf(it.toString()) } ?: return
+        val address = newAddress?.let { listOf(it) } ?: return
+
         viewModelScope.subscribe(
-            { interactor.sendBitcoins() },
-            doOnSuccess = { balance ->
-                navigator.navigateTo(StatusPageScreen)
+            { interactor.sendBitcoins(amount = amount, addresses = address, label = newLabel) },
+            doOnSuccess = { txId ->
+                navigator.navigateTo(StatusPageScreen(txId))
             },
             doOnError = { error ->
+                val message = (error as WalletHttpException).errorMessage
                 updateUiState {
                     it.copy(
-                        showExceptionMessage = "Error cant send bitcoins ${error.localizedMessage}",
+                        showExceptionMessage = "Error cant send bitcoins $message",
                     )
                 }
             }
         )
     }
 
-    override fun onAmountChanged(email: String?) {
-        this.newEmail = email
+    override fun onAmountChanged(amount: String) {
+        this.newAmount = amount.takeIf { it.isNotEmpty() }?.toBigDecimal() ?: BigDecimal.ZERO
+
+        if (currentBalance?.isLessThan(newAmount) == true) {
+            updateUiState {
+                it.copy(
+                    showExceptionMessage = "Not enough money",
+                )
+            }
+            return
+        }
+
         checkButtonEnable()
     }
 
@@ -76,15 +92,14 @@ class TransferViewModelImpl(
     }
 
     override fun onNoteChanged(note: String?) {
-        this.newNote = note
+        this.newLabel = note
     }
 
     private fun checkButtonEnable() {
         updateUiState {
             it.copy(
-                isButtonEnabled = !newEmail.isNullOrEmpty() && !newAddress.isNullOrEmpty()
+                isButtonEnabled = newAmount != null && newAmount?.isZero() == false && !newAddress.isNullOrEmpty()
             )
         }
     }
-
 }

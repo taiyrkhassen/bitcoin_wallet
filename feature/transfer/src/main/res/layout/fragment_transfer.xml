@@ -59,12 +59,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Address">
+                    app:hintEnabled="false">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edAddress"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
                         android:background="@drawable/background_edit_text"
                         android:paddingVertical="0dp" />
 
@@ -83,13 +84,17 @@
                     style="@style/Wallet.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:hintEnabled="false"
                     android:layout_marginTop="8dp"
                     android:hint="Enter amount">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edAmount"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
+                        android:inputType="number"
+                        android:digits="0123456789."
                         android:background="@drawable/background_edit_text"
                         android:paddingVertical="0dp" />
 
@@ -100,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Note"
+                    android:text="Label"
                     android:textColor="?attr/colorAccent" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -108,13 +113,15 @@
                     style="@style/Wallet.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:hintEnabled="false"
                     android:layout_marginTop="8dp"
                     android:hint="Enter note">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edNote"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
                         android:background="@drawable/background_edit_text"
                         android:paddingVertical="0dp" />
 
@@ -138,6 +145,7 @@
                     android:layout_marginTop="10dp"
                     android:textColor="#8B91A0"
                     android:textSize="12sp"
+                    android:visibility="gone"
                     tools:text="Min: 0.00061 BTC - Max: 2.0006 BTC" />
             </LinearLayout>
 
@@ -146,7 +154,7 @@
                 style="@style/Wallet.Button.Accent"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:enabled="false"
                 android:gravity="center"
                 android:text="Send"

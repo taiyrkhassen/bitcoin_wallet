@@ -1,8 +1,8 @@
-package com.wallet.app.transfer.presentation.mvi.status
+package com.wallet.app.statuspage.presentation
 
 import com.wallet.app.presentation.navigation.Navigator
 
-class StatusPageViewModelImpl(
+internal class StatusPageViewModelImpl(
     private val navigator: Navigator
 ): StatusPageViewModel(StatusPageUiState()) {
 
