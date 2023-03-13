@@ -17,7 +17,7 @@ class RepositoryModule : BaseModule() {
             WalletRepositoryImpl(get())
         }
         single<TransferRepository> {
-            TransferRepositoryImpl(get(), get(), get())
+            TransferRepositoryImpl(get(), get())
         }
         single<ConnectionRepository> {
             ConnectionRepositoryImpl(androidContext())

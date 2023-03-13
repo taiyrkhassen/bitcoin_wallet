@@ -16,7 +16,7 @@ class TransferInteractorImpl(
         amount: List<String>,
         addresses: List<String>,
         label: String?
-    ) {
-        transferRepository.sendBitcoins(amount, addresses, label)
+    ): String {
+        return transferRepository.sendBitcoins(amount, addresses, label)
     }
 }

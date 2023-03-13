@@ -9,6 +9,7 @@ import com.wallet.app.data.BuildConfig
 import com.wallet.app.data.network.api.TransactionsApi
 import com.wallet.app.data.network.api.WalletApi
 import com.wallet.app.data.network.interceptors.ConnectionInterceptor
+import com.wallet.app.data.network.interceptors.ErrorInterceptor
 import com.wallet.app.domain.di.BaseModule
 import lib.blockIo.BlockIo
 import okhttp3.Interceptor
@@ -32,14 +33,20 @@ class NetworkModule : BaseModule() {
     override val module: Module = module {
         single { ConnectionInterceptor(get()) }
         single { HttpLoggingInterceptor() }
+        single { ErrorInterceptor() }
         factory { provideConverterFactory(get()) }
-        single { BlockIo(TESTNET_BITCOIN_KEY, PRIVATE_PIN) }
         factory { Gson() }
+
+        // initiate the BlockIo library with the API Key and Secret PIN
+        single { BlockIo(TESTNET_BITCOIN_KEY, PRIVATE_PIN) }
 
         factory(named(BLOCK_IO_RETROFIT)) {
             provideRetrofit(
                 gsonConverterFactory = get(),
-                interceptors = listOf(get<HttpLoggingInterceptor>()).toTypedArray(),
+                interceptors = listOf(
+                    get<HttpLoggingInterceptor>(),
+                    get<ErrorInterceptor>()
+                ).toTypedArray(),
                 BLOCK_IO_BASE_URL
             )
         }

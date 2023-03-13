@@ -19,7 +19,7 @@ fun NavigationScreen.toCiceroneScreen(): Screen? {
         is SplashScreen -> FragmentScreen { SplashFragment.newInstance() }
         is MainScreen -> FragmentScreen { MainFragment.newInstance() }
         is HomeScreen -> FragmentScreen { HomeFragment.newInstance() }
-        is StatusPageScreen -> FragmentScreen { com.wallet.app.statuspage.presentation.StatusPageFragment.newInstance() }
+        is StatusPageScreen -> FragmentScreen { StatusPageFragment.newInstance(txId) }
 
         is TransferScreen -> FragmentScreen { TransferFragment.newInstance() }
         else -> null

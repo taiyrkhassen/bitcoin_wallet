@@ -10,7 +10,7 @@ object SplashScreen : NavigationScreen()
 
 object MainScreen : NavigationScreen()
 
-object StatusPageScreen : NavigationScreen()
+data class StatusPageScreen(val txId: String) : NavigationScreen()
 
 object HomeScreen : NavigationScreen()
 
